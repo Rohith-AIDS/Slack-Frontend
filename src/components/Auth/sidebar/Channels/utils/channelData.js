@@ -1,5 +1,3 @@
-// src/components/Auth/sidebar/Channels/utils/channelData.js
-
 // Initial channel data
 let channelData = [
   {
@@ -37,4 +35,11 @@ const addChannel = (newChannel) => {
   localStorage.setItem('channels', JSON.stringify(channels));
 };
 
-export { getChannels, addChannel };
+// Function to delete a channel by name and update localStorage
+const deleteChannel = (channelName) => {
+  let channels = getChannels();
+  const updatedChannels = channels.filter(channel => channel.channelName !== channelName);
+  localStorage.setItem('channels', JSON.stringify(updatedChannels));
+};
+
+export { getChannels, addChannel, deleteChannel };

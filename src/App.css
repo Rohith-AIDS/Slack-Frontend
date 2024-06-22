@@ -1,0 +1,10 @@
+.App {
+    position: fixed; /* Fix the element relative to the viewport */
+    top: 0;
+    left: 0;
+    width: 100%; /* Ensure it takes the full width of the viewport */
+    height: 100vh; /* Ensure it takes the full height of the viewport */
+    background-color: #4c3c4c; /* Background color */
+    display: flex;
+    flex-direction: column;
+}

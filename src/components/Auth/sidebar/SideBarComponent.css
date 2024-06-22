@@ -3,3 +3,12 @@
     background: #4c3c4c !important;
     font-size: 1.2rem !important;
 }
+
+.side_bar {
+    width: 250px; /* Adjust based on your design */
+    height: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}

@@ -1,5 +1,3 @@
-// src/components/Auth/sidebar/Channels/ChannelComponent.jsx
-
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Menu, Icon, Modal, Form, Button, Segment } from "semantic-ui-react";
@@ -31,6 +29,7 @@ const ChannelComponent = (props) => {
         const newChannel = {
             channelName: channelAddState.name,
             description: channelAddState.description,
+            type: 'channel', // Adjust as per your channel type definition
             created_by: {
                 name: props.user.displayName,
                 avatar: props.user.photoURL
@@ -54,62 +53,72 @@ const ChannelComponent = (props) => {
         }));
     };
 
+    const handleChannelClick = (channel) => {
+        // Pass the selected channel back to the parent component
+        props.onChannelSelect(channel);
+        console.log('Channel clicked:', channel);
+    };
+
     return (
-        <>
-            <Menu.Menu>
-                <Menu.Item>
-                    <span>
-                        <Icon name="exchange" /> Channels
-                    </span>
-                    ({channels.length})
-                </Menu.Item>
-                {channels.map((channel, index) => (
-                    <Menu.Item key={index}>
+        <Menu.Menu className="sidebar-menu">
+            <Menu.Item>
+                <span>
+                    <Icon name="exchange" /> Channels
+                </span>
+                ({channels.length})
+            </Menu.Item>
+            {channels
+                .filter(channel => channel.channelName !== 'GENERAL' && channel.type !== 'text')
+                .map((channel, index) => (
+                    <Menu.Item
+                        key={index}
+                        className="channel-item clickable" // Ensure both classes are applied
+                        onClick={() => handleChannelClick(channel)}
+                    >
                         {channel.channelName}
                     </Menu.Item>
                 ))}
-                <Menu.Item>
-                    <span onClick={openModal} className="clickable">
-                        <Icon name="add" /> ADD
-                    </span>
-                </Menu.Item>
-                <Modal open={modalOpenState} onClose={closeModal}>
-                    <Modal.Header>Create Channel</Modal.Header>
-                    <Modal.Content>
-                        <Form onSubmit={onSubmit}>
-                            <Segment stacked>
-                                <Form.Input
-                                    name="name"
-                                    value={channelAddState.name}
-                                    icon="mail"
-                                    iconPosition="left"
-                                    onChange={handleInput}
-                                    type="text"
-                                    placeholder="Enter Channel Name"
-                                />
-                                <Form.Input
-                                    name="description"
-                                    value={channelAddState.description}
-                                    icon="lock"
-                                    iconPosition="left"
-                                    onChange={handleInput}
-                                    type="text"
-                                    placeholder="Enter Channel Description"
-                                />
-                            </Segment>
-                        </Form>
-                    </Modal.Content>
-                    <Modal.Actions>
-                        <Button onClick={onSubmit}>
-                            <Icon name="checkmark" /> Save
-                        </Button>
-                        <Button onClick={closeModal}>
-                            <Icon name="remove" /> Cancel
-                        </Button>
-                    </Modal.Actions>
-                </Modal>
-            </Menu.Menu>
-        </>
+            <Menu.Item>
+                <span onClick={openModal} className="clickable">
+                    <Icon name="add" /> ADD
+                </span>
+            </Menu.Item>
+            <Modal open={modalOpenState} onClose={closeModal}>
+                <Modal.Header>Create Channel</Modal.Header>
+                <Modal.Content>
+                    <Form onSubmit={onSubmit}>
+                        <Segment stacked>
+                            <Form.Input
+                                name="name"
+                                value={channelAddState.name}
+                                icon="mail"
+                                iconPosition="left"
+                                onChange={handleInput}
+                                type="text"
+                                placeholder="Enter Channel Name"
+                            />
+                            <Form.Input
+                                name="description"
+                                value={channelAddState.description}
+                                icon="lock"
+                                iconPosition="left"
+                                onChange={handleInput}
+                                type="text"
+                                placeholder="Enter Channel Description"
+                            />
+                        </Segment>
+                    </Form>
+                </Modal.Content>
+                <Modal.Actions>
+                    <Button onClick={onSubmit}>
+                        <Icon name="checkmark" /> Save
+                    </Button>
+                    <Button onClick={closeModal}>
+                        <Icon name="remove" /> Cancel
+                    </Button>
+                </Modal.Actions>
+            </Modal>
+        </Menu.Menu>
     );
 };
 

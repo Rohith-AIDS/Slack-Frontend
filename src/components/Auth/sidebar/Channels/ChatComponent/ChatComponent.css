@@ -1,0 +1,39 @@
+/* src/components/Auth/sidebar/Chat/ChatComponent.css */
+/* 
+.chat-container {
+    margin: 20px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.messages-container {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-bottom: 10px;
+}
+
+.comment {
+    margin-bottom: 10px;
+} */
+
+.chat-container {
+    /* position: fixed; */
+    top: 20px;
+    left: -10px; /* Adjust based on sidebar width */
+    right: -50px;
+    bottom: 40;
+    padding: 20px; /* Reduced padding */
+    overflow-y: auto;
+    background-color: #fff; /* Chat container background color */
+    border-left: 1px solid #ccc; /* Optional: Add border for separation */
+    z-index: 1000; /* Ensure it's above other elements if necessary */
+    
+}
+
+.messages-container {
+    
+    height: 60vh; /* Reduced height to 70% of viewport height */
+    overflow-y: auto;
+    padding-bottom: 20px; /* Reduced padding */
+}

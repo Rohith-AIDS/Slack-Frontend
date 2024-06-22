@@ -2,17 +2,24 @@ import React from 'react';
 import './App.css';
 import './components/sidebar1/sidebar1Component'
 import SideBarComponent from './components/Auth/sidebar/SideBarComponent';
-import Messages from './components/Messages/MessageContent/MessageContent.component'
+import MessageHeader from './components/Messages/MessageHeader/MessageHeaderComponent';
 import ChannelComponent from './components/Auth/sidebar/Channels/ChannelComponent';
-import MessageHeader from './components/Messages/MessageHeader/MessageHeader.component';
+import ChatComponent from './components/Auth/sidebar/Channels/ChatComponent/ChatComponent';
+import LayoutComponent from './components/Layout/LayoutComponent';
+
+
+
+
 
 
 function App() {
   return (
     <div className="App">
-      <SideBarComponent/>
-      <MessageHeader/>
+      <LayoutComponent/>
+     
       <ChannelComponent/>
+      
+      
     </div>
   );
 }

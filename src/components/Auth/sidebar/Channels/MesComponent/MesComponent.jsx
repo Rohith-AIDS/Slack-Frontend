@@ -218,6 +218,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+    setUser: (user) => dispatch(setUser(user)),
     setfavouriteChannel: (channel) => dispatch(setfavouriteChannel(channel)),
     removefavouriteChannel: (channel) => dispatch(removefavouriteChannel(channel)),
 });

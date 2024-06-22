@@ -14,6 +14,7 @@ const Login = () => {
     const [userState, setUserState] = useState(user);
     const [errorState, setErrorState] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
+    
     const navigate = useNavigate(); // Use navigate hook for redirection
 
     const handleInput = (event) => {
@@ -52,7 +53,7 @@ const Login = () => {
                 .then((user) => {
                     setIsLoading(false);
                     console.log(user);
-                    navigate('/'); // Redirect to the App landing page after successful login
+                    navigate('/register'); // Redirect to the App landing page after successful login
                 })
                 .catch((serverError) => {
                     setIsLoading(false);

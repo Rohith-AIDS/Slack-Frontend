@@ -9,3 +9,56 @@
 .ui.menu .item.active{
     background : #1164A3 !important;
 }
+/* src/components/Auth/sidebar/Channels/ChannelComponent.css */
+
+/* src/components/Auth/sidebar/Channels/ChannelComponent.css */
+
+.channel-component-wrapper .channel-item {
+    cursor: pointer;
+    
+    
+}
+/* src/components/Auth/sidebar/Channels/ChannelComponent.css */
+
+.sidebar-menu .channel-item {
+    cursor: pointer;
+   
+}
+.channel-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+}
+
+.delete-icon {
+  cursor: pointer;
+  color: red;
+}
+
+.sidebar-menu {
+  margin-top: 35px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+.sidebar-menu .channel-item {
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
+.sidebar-menu .channel-item:hover {
+    background-color: #f0f0f0; /* Adjust background color on hover */
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+
+
+

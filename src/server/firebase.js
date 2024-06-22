@@ -9,6 +9,7 @@ import { getAnalytics, isSupported } from 'firebase/analytics';
 const firebaseConfig = {
   apiKey: "AIzaSyDzwhupsUA7w3I8B0F2t6CYBGNwmOLD3OM",
   authDomain: "slack-project-fe66c.firebaseapp.com",
+  databaseURL: "https://slack-project-fe66c-default-rtdb.firebaseio.com",
   projectId: "slack-project-fe66c",
   storageBucket: "slack-project-fe66c.appspot.com",
   messagingSenderId: "1008561675504",

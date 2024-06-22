@@ -1,0 +1,12 @@
+.app-container {
+    display: flex;
+    height: 100vh;
+}
+
+.main-content {
+    flex: 1;
+    margin-top: 60px; /* Adjust based on the header height */
+    margin-left: 250px; /* Adjust based on the sidebar width */
+    padding: 20px;
+    overflow-y: auto;
+}

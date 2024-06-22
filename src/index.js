@@ -12,7 +12,6 @@ import { auth } from './server/firebase'; // Adjust the path as needed
 import { rootReducer } from './store/reducer'; // Correct import of rootReducer
 import { setUser } from './store/actioncreator'; // Adjust the path as needed
 
-
 import "semantic-ui-css/semantic.min.css";
 
 // Create the Redux store
