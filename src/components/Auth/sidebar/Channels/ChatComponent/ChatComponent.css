@@ -72,3 +72,18 @@
     align-items: center;
     justify-content: center;
 }
+.message-input input {
+    background-color: #fff0f5; /* Light pink background */
+    border: 2px solid #ff69b4; /* Hot pink border */
+    border-radius: 15px; /* Rounded corners */
+    padding: 10px; /* Padding inside the input */
+    color: #4b0082; /* Indigo text color */
+}
+
+.search-input {
+     /* Light cyan background */
+    border: 1px black; /* Dark turquoise border */
+    border-radius: 15px; /* Rounded corners */
+    padding: 10px; /* Padding inside the input */
+    color: #00008b; /* Dark blue text color */
+}

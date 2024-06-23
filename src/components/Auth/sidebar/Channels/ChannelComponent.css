@@ -29,3 +29,28 @@
 .clickable:hover {
   cursor: pointer;
 }
+.sidebar-menu .modal {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+}
+
+.ui.modal > .content {
+  display: flex;
+  justify-content: center;
+}
+.sidebar-menu .channel-item.selected {
+    background-color: #f0f0f0; /* Highlight selected channel */
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+

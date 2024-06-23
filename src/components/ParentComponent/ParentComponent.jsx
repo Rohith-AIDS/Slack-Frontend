@@ -1,27 +1,25 @@
-// ParentComponent.jsx (Example)
-
 // import React, { useState } from "react";
+// import { connect } from "react-redux";
 // import ChannelComponent from "../Auth/sidebar/Channels/ChannelComponent";
-// import ChatComponent from "../Auth/sidebar/Channels/ChatComponent/ChatComponent";
-
+// import ChatComponent from "../Auth/sidebar/Channels/ChatComponent/ChatComponent"; // Adjust path as per your project structure
 
 // const ParentComponent = () => {
 //     const [selectedChannel, setSelectedChannel] = useState(null);
 
-//     const handleChannelClick = (channel) => {
+//     const handleChannelSelect = (channel) => {
 //         setSelectedChannel(channel);
 //     };
 
 //     return (
-//         <div className="parent-container">
-//             <div className="sidebar">
-//                 <ChannelComponent onChannelClick={handleChannelClick} />
-//             </div>
-//             <div className="main-content">
-//                 {selectedChannel && <ChatComponent channel={selectedChannel} />}
-//             </div>
+//         <div>
+//             <ChannelComponent onChannelSelect={handleChannelSelect} />
+//             {selectedChannel && <ChatComponent channel={selectedChannel} />}
 //         </div>
 //     );
 // };
 
-// export default ParentComponent;
+// const mapStateToProps = (state) => ({
+//     // Connect with Redux if needed
+// });
+
+// export default connect(mapStateToProps)(ParentComponent);

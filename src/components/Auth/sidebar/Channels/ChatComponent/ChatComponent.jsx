@@ -49,6 +49,7 @@ const ChatComponent = ({ channel, user }) => {
                 text: message,
                 sender: user.displayName, // Use the actual user information
                 time: new Date().toLocaleTimeString(),
+                channelName: channel.channelName // Include the channel name in the message
             };
             try {
                 await addMessage(newMessage);
@@ -75,6 +76,7 @@ const ChatComponent = ({ channel, user }) => {
                 image: url,  // Blob URL
                 sender: user.displayName, // Use the actual user information
                 time: new Date().toLocaleTimeString(),
+                channelName: channel.channelName // Include the channel name in the message
             };
             try {
                 await addMessage(newMessage);
@@ -109,6 +111,7 @@ const ChatComponent = ({ channel, user }) => {
                 value={searchTerm}
                 onChange={handleSearchChange}
                 fluid
+                className="search-input"
                 style={{ marginBottom: '10px' }}
             />
             <Segment className="messages-container">
