@@ -2,11 +2,10 @@ import React from 'react';
 import { Grid, Segment } from 'semantic-ui-react';
 import SideBarComponent from '../Auth/sidebar/SideBarComponent';
 import ChatComponent from '../Auth/sidebar/Channels/ChatComponent/ChatComponent';
-import './LayoutComponent.css'; // Add custom styles for the layout
+import { connect } from 'react-redux';
+import './LayoutComponent.css';
 
-const user = { displayName: 'Alice' }; // Replace with actual user data
-
-const LayoutComponent = () => {
+const LayoutComponent = ({ user }) => {
     const channels = [
         { channelName: "Channel" },
         // Add more channels as needed
@@ -31,4 +30,8 @@ const LayoutComponent = () => {
     );
 };
 
-export default LayoutComponent;
+const mapStateToProps = (state) => ({
+    user: state.user.currentUser
+});
+
+export default connect(mapStateToProps)(LayoutComponent);

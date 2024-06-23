@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react';
-import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import React, { useEffect, useState } from 'react';
+import ReactDOM from 'react-dom/client';
+import { BrowserRouter as Router, Route, Routes, useNavigate, Navigate } from 'react-router-dom';
+import { onAuthStateChanged } from 'firebase/auth';
 import { Provider, connect } from 'react-redux';
 import { createStore } from 'redux';
 import App from './App';
@@ -19,6 +19,7 @@ const store = createStore(rootReducer);
 
 const Index = ({ setUser, currentUser }) => {
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(true); // Add a loading state
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -27,31 +28,34 @@ const Index = ({ setUser, currentUser }) => {
         navigate("/");
       } else {
         setUser(null);
-        navigate("/login");
+        navigate("/register");
       }
+      setLoading(false); // Set loading to false after the authentication state is checked
     });
 
     // Cleanup subscription on unmount
     return () => unsubscribe();
   }, [navigate, setUser]);
 
-  console.log(currentUser); // Assuming you want to log the currentUser state
+  if (loading) {
+    return <div>Loading...</div>; // Show a loading indicator while checking authentication state
+  }
 
   return (
     <Routes>
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
-      <Route path="/" element={<App />} />
+      <Route path="/" element={currentUser ? <App /> : <Navigate to="/register" />} />
     </Routes>
   );
-}
+};
 
 const mapStateToProps = (state) => ({
-  currentUser: state.user.currentUser
+  currentUser: state.user.currentUser,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setUser: (user) => dispatch(setUser(user))
+  setUser: (user) => dispatch(setUser(user)),
 });
 
 // Connect Index component to Redux store
@@ -68,7 +72,4 @@ root.render(
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();

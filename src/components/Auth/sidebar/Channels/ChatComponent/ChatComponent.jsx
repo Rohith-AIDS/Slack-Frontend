@@ -3,25 +3,27 @@ import { Segment, Form, Comment, Header, Input, Button, Icon, Modal } from "sema
 import { getMessages, addMessage } from '../utils/IndexedDB'; // Adjust the path as necessary
 import './ChatComponent.css';
 
-const ChatComponent = ({ channel }) => {
+const ChatComponent = ({ channel, user }) => {
     const [message, setMessage] = useState("");
     const [messages, setMessages] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const [filteredMessages, setFilteredMessages] = useState([]);
     const [isImageUploadOpen, setImageUploadOpen] = useState(false);
     const fileInputRef = useRef(null);
+    const messagesEndRef = useRef(null);
 
     useEffect(() => {
-        getMessages().then(storedMessages => {
-            if (storedMessages) {
-                setMessages(storedMessages);
-            } else {
-                setMessages([]); // Initialize messages as an empty array if storedMessages is null or undefined
+        const fetchMessages = async () => {
+            try {
+                const storedMessages = await getMessages();
+                setMessages(storedMessages || []);
+            } catch (error) {
+                console.error("Error retrieving messages from IndexedDB:", error);
+                setMessages([]);
             }
-        }).catch(error => {
-            console.error("Error retrieving messages from IndexedDB:", error);
-            setMessages([]); // Handle error by initializing messages as an empty array
-        });
+        };
+
+        fetchMessages();
     }, []);
 
     useEffect(() => {
@@ -31,11 +33,21 @@ const ChatComponent = ({ channel }) => {
         setFilteredMessages(filtered);
     }, [messages, searchTerm]);
 
+    useEffect(() => {
+        scrollToBottom();
+    }, [filteredMessages]);
+
+    const scrollToBottom = () => {
+        if (messagesEndRef.current) {
+            messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     const handleSendMessage = async () => {
         if (message.trim()) {
             const newMessage = {
                 text: message,
-                sender: 'Logged In User', // Adjust this to use actual user information if available
+                sender: user.displayName, // Use the actual user information
                 time: new Date().toLocaleTimeString(),
             };
             try {
@@ -61,7 +73,7 @@ const ChatComponent = ({ channel }) => {
             const newMessage = {
                 text: `Image uploaded: ${file.name}`,
                 image: url,  // Blob URL
-                sender: 'Logged In User', // Adjust this to use actual user information if available
+                sender: user.displayName, // Use the actual user information
                 time: new Date().toLocaleTimeString(),
             };
             try {
@@ -115,6 +127,7 @@ const ChatComponent = ({ channel }) => {
                             </Comment.Content>
                         </Comment>
                     ))}
+                    <div ref={messagesEndRef} />
                 </Comment.Group>
             </Segment>
             <Form className="message-form" onSubmit={(e) => {

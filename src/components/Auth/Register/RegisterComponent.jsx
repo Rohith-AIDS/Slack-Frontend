@@ -4,7 +4,9 @@ import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase
 import { getDatabase, ref, set } from 'firebase/database';
 import "../../Auth/Auth.css";
 import { app } from '../../../server/firebase';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { setUser } from '../../../store/actioncreator'; // Import your setUser action creator
+
 const Register = () => {
     let user = {
         userName: '',
@@ -17,6 +19,7 @@ const Register = () => {
     const [errorState, setErrorState] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
+    const navigate = useNavigate();
 
     const handleInput = (event) => {
         let target = event.target;
@@ -65,7 +68,6 @@ const Register = () => {
             createUserWithEmailAndPassword(auth, userState.email, userState.password)
                 .then((createdUser) => {
                     setIsLoading(false);
-                    console.log(createdUser);
                     updateUserDetails(createdUser.user);
                 })
                 .catch((serverError) => {
@@ -84,9 +86,6 @@ const Register = () => {
             })
                 .then(() => {
                     setIsLoading(false);
-                    console.log("User profile updated");
-                    console.log(`Display Name: ${createdUser.displayName}`);
-                    console.log(`Photo URL: ${createdUser.photoURL}`);
                     saveUserInDB(createdUser); // Call saveUserInDB after updating the profile
                 })
                 .catch((serverError) => {
@@ -107,6 +106,7 @@ const Register = () => {
             .then(() => {
                 setIsLoading(false);
                 setIsSuccess(true);
+                navigate("/login"); // Redirect to login page after successful registration
             })
             .catch((serverError) => {
                 setIsLoading(false);
@@ -184,12 +184,14 @@ const Register = () => {
                     {formatErrors()}
                 </Message>}
 
-                {isSuccess && errorState.length === 0 && <Message success>
-                    <h3>Successfully Registered</h3>
-                </Message>}
+                {isSuccess && errorState.length === 0 && (
+                    <Message success>
+                        <h3>Successfully Registered</h3>
+                    </Message>
+                )}
 
                 <Message>
-                    Already an user? <Link to="/login">Login</Link>
+                    Already a user? <Link to="/login">Login</Link>
                 </Message>
             </GridColumn>
         </Grid>

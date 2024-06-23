@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import "./UserInfoComponent.css";
 import { auth } from "../../../../server/firebase"; // Import the named export
 
-const UserInfoComponent = (props) => {
+const UserInfoComponent = ({ user }) => {
 
   const getDropDownOptions = () => {
     return [
@@ -20,7 +20,7 @@ const UserInfoComponent = (props) => {
       .then(() => console.log("User Signed Out"));
   };
 
-  if (props.user) {
+  if (user) {
     return (
       <Grid>
         <GridColumn>
@@ -32,8 +32,8 @@ const UserInfoComponent = (props) => {
             <Header inverted as="h4" className="userinfo_display_name">
               <Dropdown trigger={
                 <span>
-                  <Image src={props.user.photoURL} avatar />
-                  {props.user.displayName}
+                  <Image src={user.photoURL} avatar />
+                  {user.displayName}
                 </span>
               }
                 options={getDropDownOptions()}
