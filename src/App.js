@@ -6,6 +6,7 @@ import MessageHeader from './components/Messages/MessageHeader/MessageHeaderComp
 import ChannelComponent from './components/Auth/sidebar/Channels/ChannelComponent';
 import ChatComponent from './components/Auth/sidebar/Channels/ChatComponent/ChatComponent';
 import LayoutComponent from './components/Layout/LayoutComponent';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 

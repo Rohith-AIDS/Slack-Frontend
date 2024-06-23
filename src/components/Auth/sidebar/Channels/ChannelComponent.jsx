@@ -72,7 +72,7 @@ const ChannelComponent = (props) => {
                 .map((channel, index) => (
                     <Menu.Item
                         key={index}
-                        className="channel-item clickable" // Ensure both classes are applied
+                        className="channel-item" // Ensure both classes are applied
                         onClick={() => handleChannelClick(channel)}
                     >
                         {channel.channelName}

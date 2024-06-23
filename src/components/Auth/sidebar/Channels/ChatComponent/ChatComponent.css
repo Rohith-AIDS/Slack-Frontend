@@ -1,24 +1,37 @@
-/* src/components/Auth/sidebar/Chat/ChatComponent.css */
-/* 
-.chat-container {
-    margin: 20px;
+/* ChatComponent.css */
+
+.header-with-icons {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f0f0f0;
     padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.messages-container {
-    max-height: 300px;
-    overflow-y: auto;
-    margin-bottom: 10px;
+.header-with-icons .icons {
+    display: flex;
+    gap: 10px;
 }
 
-.comment {
-    margin-bottom: 10px;
-} */
+.header-with-icons .icons .icon {
+    color: #4a90e2; /* Base color for the icons */
+    transition: color 0.3s, transform 0.3s;
+    cursor: pointer;
+}
+
+.header-with-icons .icons .icon:hover {
+    color: #f39c12; /* Color on hover */
+    transform: scale(1.2); /* Slightly increase size on hover */
+}
+
+.header-with-icons h3 {
+    color: #2c3e50; /* Channel name color */
+    margin: 0;
+}
 
 .chat-container {
-    /* position: fixed; */
     top: 20px;
     left: -10px; /* Adjust based on sidebar width */
     right: -50px;
@@ -28,12 +41,34 @@
     background-color: #fff; /* Chat container background color */
     border-left: 1px solid #ccc; /* Optional: Add border for separation */
     z-index: 1000; /* Ensure it's above other elements if necessary */
-    
 }
 
 .messages-container {
-    
-    height: 60vh; /* Reduced height to 70% of viewport height */
+    height: 55vh; /* Reduced height to 70% of viewport height */
     overflow-y: auto;
     padding-bottom: 20px; /* Reduced padding */
+}
+
+.message-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.message-input {
+    flex-grow: 1;
+    margin-right: 10px;
+}
+
+/* Center modal */
+.ui.modal {
+    display: flex !important; /* Ensure flexbox layout */
+    align-items: center;
+    justify-content: center;
+}
+
+.ui.dimmer.modals.page.transition.visible {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
 }
