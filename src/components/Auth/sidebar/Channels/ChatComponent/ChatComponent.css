@@ -87,3 +87,9 @@
     padding: 10px; /* Padding inside the input */
     color: #00008b; /* Dark blue text color */
 }
+/* ChatComponent.css */
+.camera-container video {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+}

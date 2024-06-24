@@ -1,14 +1,26 @@
-.side_bar
-{
+/* SideBarComponent.css */
+.side_bar {
     background: #4c3c4c !important;
     font-size: 1.2rem !important;
-}
-
-.side_bar {
     width: 250px; /* Adjust based on your design */
     height: 100%;
     position: fixed;
     top: 0;
     left: 0;
     z-index: 1000;
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+@media screen and (max-width: 768px) {
+    .side_bar {
+        width: 200px; /* Adjust width for smaller screens */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .side_bar {
+        width: 100%; /* Sidebar takes full width */
+        height: auto; /* Adjust height if needed */
+        position: relative; /* Change position if needed */
+    }
 }
