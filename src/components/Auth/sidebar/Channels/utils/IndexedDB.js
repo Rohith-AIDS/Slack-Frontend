@@ -1,5 +1,3 @@
-// src/utils/firebaseDB.js
-
 import { ref, push, onValue } from 'firebase/database';
 import { database } from '../../../../../server/firebase'; // Adjust path as necessary
 
@@ -22,6 +20,8 @@ export const getMessages = () => {
 };
 
 export const addMessage = (message) => {
+    // Add a unique id to each message
+    message.id = Date.now();
     return push(messagesRef, message)
         .then(() => {
             console.log("Message added successfully to Firebase Database");

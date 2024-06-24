@@ -1,6 +1,8 @@
+// src/components/Auth/sidebar/Channels/ChatComponent/ChatComponent.jsx
+
 import React, { useState, useEffect, useRef } from "react";
 import { Segment, Form, Comment, Header, Input, Button, Icon, Modal } from "semantic-ui-react";
-import { getMessages, addMessage } from '../utils/IndexedDB'; // Adjust the path as necessary
+import { getMessages, addMessage } from '../utils/IndexedDB'; // Adjust path as necessary
 import './ChatComponent.css';
 
 const ChatComponent = ({ channel, user }) => {
@@ -18,7 +20,7 @@ const ChatComponent = ({ channel, user }) => {
                 const storedMessages = await getMessages();
                 setMessages(storedMessages || []);
             } catch (error) {
-                console.error("Error retrieving messages from IndexedDB:", error);
+                console.error("Error retrieving messages from Firebase Database:", error);
                 setMessages([]);
             }
         };
@@ -46,25 +48,21 @@ const ChatComponent = ({ channel, user }) => {
     const handleSendMessage = async () => {
         if (message.trim()) {
             const newMessage = {
-                id: Date.now(), // Unique ID for each message
                 text: message,
                 sender: user.displayName,
                 time: new Date().toLocaleTimeString(),
                 channelName: channel.channelName
             };
-
-            // Check if the message with the same id already exists
-            if (!messages.some(msg => msg.id === newMessage.id)) {
-                try {
-                    await addMessage(newMessage);
-                    // Update state with new message
-                    setMessages(prevMessages => [...prevMessages, newMessage]);
-                    setMessage(""); // Clear message input
-                } catch (error) {
-                    console.error("Error adding message to IndexedDB", error);
-                }
-            } else {
-                console.log("Message already exists in state, skipping...");
+            try {
+                await addMessage(newMessage);
+                // Update state with new message only if it doesn't already exist
+                setMessages(prevMessages => {
+                    const messageExists = prevMessages.some(msg => msg.text === newMessage.text && msg.time === newMessage.time);
+                    return messageExists ? prevMessages : [...prevMessages, newMessage];
+                });
+                setMessage(""); // Clear message input
+            } catch (error) {
+                console.error("Error adding message to Firebase Database", error);
             }
         }
     };
@@ -80,25 +78,21 @@ const ChatComponent = ({ channel, user }) => {
             const url = URL.createObjectURL(blob);
 
             const newMessage = {
-                id: Date.now(), // Unique ID for each message
                 text: `Image uploaded: ${file.name}`,
                 image: url,
                 sender: user.displayName,
                 time: new Date().toLocaleTimeString(),
                 channelName: channel.channelName
             };
-
-            // Check if the message with the same id already exists
-            if (!messages.some(msg => msg.id === newMessage.id)) {
-                try {
-                    await addMessage(newMessage);
-                    // Update state with new message
-                    setMessages(prevMessages => [...prevMessages, newMessage]);
-                } catch (error) {
-                    console.error("Error adding message to IndexedDB", error);
-                }
-            } else {
-                console.log("Message already exists in state, skipping...");
+            try {
+                await addMessage(newMessage);
+                // Update state with new message only if it doesn't already exist
+                setMessages(prevMessages => {
+                    const messageExists = prevMessages.some(msg => msg.image === newMessage.image && msg.time === newMessage.time);
+                    return messageExists ? prevMessages : [...prevMessages, newMessage];
+                });
+            } catch (error) {
+                console.error("Error adding image to Firebase Database", error);
             }
         };
         reader.readAsArrayBuffer(file);
@@ -132,8 +126,8 @@ const ChatComponent = ({ channel, user }) => {
             />
             <Segment className="messages-container">
                 <Comment.Group>
-                    {filteredMessages.map((msg) => (
-                        <Comment key={msg.id}>
+                    {filteredMessages.map((msg, index) => (
+                        <Comment key={index}>
                             <Comment.Content>
                                 <Comment.Author as="a">{msg.sender}</Comment.Author>
                                 <Comment.Metadata>
