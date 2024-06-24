@@ -46,18 +46,25 @@ const ChatComponent = ({ channel, user }) => {
     const handleSendMessage = async () => {
         if (message.trim()) {
             const newMessage = {
+                id: Date.now(), // Unique ID for each message
                 text: message,
                 sender: user.displayName,
                 time: new Date().toLocaleTimeString(),
                 channelName: channel.channelName
             };
-            try {
-                await addMessage(newMessage);
-                // Update state with new message
-                setMessages(prevMessages => [...prevMessages, newMessage]);
-                setMessage(""); // Clear message input
-            } catch (error) {
-                console.error("Error adding message to IndexedDB", error);
+
+            // Check if the message with the same id already exists
+            if (!messages.some(msg => msg.id === newMessage.id)) {
+                try {
+                    await addMessage(newMessage);
+                    // Update state with new message
+                    setMessages(prevMessages => [...prevMessages, newMessage]);
+                    setMessage(""); // Clear message input
+                } catch (error) {
+                    console.error("Error adding message to IndexedDB", error);
+                }
+            } else {
+                console.log("Message already exists in state, skipping...");
             }
         }
     };
@@ -73,18 +80,25 @@ const ChatComponent = ({ channel, user }) => {
             const url = URL.createObjectURL(blob);
 
             const newMessage = {
+                id: Date.now(), // Unique ID for each message
                 text: `Image uploaded: ${file.name}`,
                 image: url,
                 sender: user.displayName,
                 time: new Date().toLocaleTimeString(),
                 channelName: channel.channelName
             };
-            try {
-                await addMessage(newMessage);
-                // Update state with new message
-                setMessages(prevMessages => [...prevMessages, newMessage]);
-            } catch (error) {
-                console.error("Error adding message to IndexedDB", error);
+
+            // Check if the message with the same id already exists
+            if (!messages.some(msg => msg.id === newMessage.id)) {
+                try {
+                    await addMessage(newMessage);
+                    // Update state with new message
+                    setMessages(prevMessages => [...prevMessages, newMessage]);
+                } catch (error) {
+                    console.error("Error adding message to IndexedDB", error);
+                }
+            } else {
+                console.log("Message already exists in state, skipping...");
             }
         };
         reader.readAsArrayBuffer(file);
@@ -118,8 +132,8 @@ const ChatComponent = ({ channel, user }) => {
             />
             <Segment className="messages-container">
                 <Comment.Group>
-                    {filteredMessages.map((msg, index) => (
-                        <Comment key={index}>
+                    {filteredMessages.map((msg) => (
+                        <Comment key={msg.id}>
                             <Comment.Content>
                                 <Comment.Author as="a">{msg.sender}</Comment.Author>
                                 <Comment.Metadata>
