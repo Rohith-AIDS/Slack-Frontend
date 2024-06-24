@@ -5,19 +5,27 @@ let channelData = [
     description: "General discussion for everyone."
   },
   {
-    channelName: "tech",
+    channelName: "Mern-full-stack",
     description: "Tech talks and discussions."
   },
   {
-    channelName: "random",
+    channelName: "Data Science",
     description: "Random thoughts and fun stuff."
   },
   {
-    channelName: "support",
+    channelName: "Machine Learning",
     description: "Support and helpdesk."
   },
   {
-    channelName: "announcements",
+    channelName: "Java-full-stack",
+    description: "Important announcements and updates."
+  },
+  {
+    channelName: "Game-Development",
+    description: "Important announcements and updates."
+  },
+  {
+    channelName: "Mobile-App-Development",
     description: "Important announcements and updates."
   }
 ];
