@@ -47,14 +47,15 @@ const ChatComponent = ({ channel, user }) => {
         if (message.trim()) {
             const newMessage = {
                 text: message,
-                sender: user.displayName, // Use the actual user information
+                sender: user.displayName,
                 time: new Date().toLocaleTimeString(),
-                channelName: channel.channelName // Include the channel name in the message
+                channelName: channel.channelName
             };
             try {
                 await addMessage(newMessage);
+                // Update state with new message
                 setMessages(prevMessages => [...prevMessages, newMessage]);
-                setMessage("");
+                setMessage(""); // Clear message input
             } catch (error) {
                 console.error("Error adding message to IndexedDB", error);
             }
@@ -73,13 +74,14 @@ const ChatComponent = ({ channel, user }) => {
 
             const newMessage = {
                 text: `Image uploaded: ${file.name}`,
-                image: url,  // Blob URL
-                sender: user.displayName, // Use the actual user information
+                image: url,
+                sender: user.displayName,
                 time: new Date().toLocaleTimeString(),
-                channelName: channel.channelName // Include the channel name in the message
+                channelName: channel.channelName
             };
             try {
                 await addMessage(newMessage);
+                // Update state with new message
                 setMessages(prevMessages => [...prevMessages, newMessage]);
             } catch (error) {
                 console.error("Error adding message to IndexedDB", error);
@@ -116,7 +118,7 @@ const ChatComponent = ({ channel, user }) => {
             />
             <Segment className="messages-container">
                 <Comment.Group>
-                    {filteredMessages && filteredMessages.map((msg, index) => (
+                    {filteredMessages.map((msg, index) => (
                         <Comment key={index}>
                             <Comment.Content>
                                 <Comment.Author as="a">{msg.sender}</Comment.Author>

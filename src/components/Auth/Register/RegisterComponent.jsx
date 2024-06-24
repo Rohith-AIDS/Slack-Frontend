@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { Grid, Form, Segment, GridColumn, Icon, Header, Button, Message } from 'semantic-ui-react';
+import { Grid, Form, Segment, Icon, Header, Button, Message } from 'semantic-ui-react';
 import { getAuth, createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { getDatabase, ref, set } from 'firebase/database';
 import "../../Auth/Auth.css";
 import { app } from '../../../server/firebase';
-import { Link, useNavigate } from 'react-router-dom';
-import { setUser } from '../../../store/actioncreator'; // Import your setUser action creator
-
+import { useNavigate } from 'react-router-dom'; // Ensure correct import
+import { Link } from 'react-router-dom';
 const Register = () => {
     let user = {
         userName: '',
@@ -19,7 +18,7 @@ const Register = () => {
     const [errorState, setErrorState] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // Hook for navigation
 
     const handleInput = (event) => {
         let target = event.target;
@@ -135,7 +134,7 @@ const Register = () => {
 
     return (
         <Grid verticalAlign='middle' textAlign='center' className='grid-form'>
-            <GridColumn style={{ maxWidth: '500px' }}>
+            <Grid.Column style={{ maxWidth: '500px' }}>
                 <Header icon as="h2">
                     <Icon name="slack" />Register
                 </Header>
@@ -175,7 +174,7 @@ const Register = () => {
                             iconPosition="left"
                             onChange={handleInput}
                             type="password"
-                            placeholder="re-enter password" />
+                            placeholder="Confirm Password" />
                     </Segment>
                     <Button disabled={isLoading} loading={isLoading} className='button-color'>Submit</Button>
                 </Form>
@@ -193,9 +192,9 @@ const Register = () => {
                 <Message>
                     Already a user? <Link to="/login">Login</Link>
                 </Message>
-            </GridColumn>
+            </Grid.Column>
         </Grid>
     );
-}
+};
 
 export default Register;
